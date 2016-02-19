@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.all.paginate(page: params[:page], per_page: 5)
     @posts = Post.search(params[:search]).paginate(:per_page => 5, :page => params[:page])
+    @last_five_posts = Post.limit(5).order('id desc')
   end
 
   # GET /posts/1
@@ -63,6 +64,8 @@ class PostsController < ApplicationController
       format.js
     end
   end
+  
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
